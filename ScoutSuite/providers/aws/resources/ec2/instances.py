@@ -2,6 +2,7 @@ from ScoutSuite.providers.aws.resources.base import AWSResources
 from ScoutSuite.providers.aws.facade.base import AWSFacade
 from ScoutSuite.providers.aws.utils import get_name
 from ScoutSuite.providers.aws.utils import get_keys
+from ScoutSuite.providers.aws.utils import set_tags
 import re
 
 
@@ -51,6 +52,8 @@ class EC2Instances(AWSResources):
         else:
             instance['iam_role'] = None
 
+        instance['tags'] = await set_tags(raw_instance)
+        
         return id, instance
 
     @staticmethod

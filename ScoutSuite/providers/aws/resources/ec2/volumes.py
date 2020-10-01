@@ -20,4 +20,6 @@ class Volumes(AWSResources):
         raw_volume['arn'] = 'arn:aws:ec2:{}:{}:volume/{}'.format(self.region,
                                                                              self.facade.owner_id,
                                                                              raw_volume.get('name'))
+        if "Tags" in raw_snapshot:
+            raw_snapshot['tags'] = {x["Key"]: x["Value"] for x in raw_snapshot["Tags"]}
         return raw_volume['id'], raw_volume

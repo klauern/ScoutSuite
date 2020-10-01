@@ -21,6 +21,8 @@ class Snapshots(AWSResources):
         raw_snapshot['arn'] = 'arn:aws:ec2:{}:{}:snapshot/{}'.format(self.get('region'),
                                                                      raw_snapshot.get('OwnerId'),
                                                                      raw_snapshot.get('name'))
+        if "Tags" in raw_snapshot:
+            raw_snapshot['tags'] = {x["Key"]: x["Value"] for x in raw_snapshot["Tags"]}
         return raw_snapshot['id'], raw_snapshot
 
     @staticmethod
